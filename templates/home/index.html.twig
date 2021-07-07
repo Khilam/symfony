@@ -17,7 +17,7 @@
                         {{ article.prix }}
                         €
                     </h2>
-                    <img class="img-fluid rounded" src="" alt="Image de ">
+                    <img class="img-fluid rounded" src="{{article.image}}" alt="Image de ">
                     <hr>
                     <a href="{{ path('cart_add', {'id': article.id}) }}" class="btn btn-success float-right">
                         <i class="fas fa-shopping-cart mr-1"></i>
