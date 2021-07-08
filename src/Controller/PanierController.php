@@ -31,6 +31,7 @@ public function index(SessionInterface $session, ArticleRepository $articleRepos
       $totalItem = $item['product']->getPrix() * $item['quantity'];
       $total += $totalItem;
   }
+//   dd($panierwithData);
    return $this->render('panier/index.html.twig',['items' => $panierwithData,
 'total' => $total]);
 
@@ -46,14 +47,14 @@ public function index(SessionInterface $session, ArticleRepository $articleRepos
      if(!empty($panier[$id])){
           $panier[$id]++;
      }else{
-
+        
         $panier[$id] = 1;
      }
 
    
 
      $session->set('panier', $panier);
-     dd($session->get('panier'));
+     return $this->redirectToRoute("cart_index");
  }
 
  /**
@@ -67,5 +68,20 @@ unset($panier[$id]);
 $session->set('panier', $panier);
 return $this->redirectToRoute("cart_index");
 }
+/**
+ *@Route("/panier/add-one-product/{id}", name="add_one_product") 
+ */
+ public function addOneProduct($id,SessionInterface $session){
+     $panier = $session->get('panier', []);
+    $key = $panier[$id];
+    dd($id , $panier, $panier[$id], $key, (int) $id === $panier[$id]);
+     if((int) $id === key($panier)) {
+       
+        $panier[$id]++;
+        // dd($panier);
+     }
+     $session->set('panier', $panier);
+     return $this->redirectToRoute("cart_index");
+ }
 }
 
